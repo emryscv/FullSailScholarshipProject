@@ -1,0 +1,129 @@
+ARQUITECTURA DE COMPUTADORAS 2021
+Conferencia 1: Introducción a Arquitectura de Computadoras.
+
+¿Qué es Arquitectura de Computadoras?
+Arquitectura de Computadoras es la ciencia que describe el funcionamiento, la organización e implementación de sistemas de cómputos. Define un conjunto de reglas que establecen cómo se “unen” e interactúan el software y hardware para hacer que el cómputo funcione.
+Se puede decir que la disciplina tiene varias subcategorías. Entre las más importantes (y que estaremos desarrollando más adelante) se encuentran:
+    • Arquitectura del Conjunto de Instrucciones (ISA): define el Código de Máquina que el procesador lee, y otros elementos como el tamaño de palabra, modos de dirección a memoria, registros y el tipo de dato.
+    • Organización (Computer Organization or Microarchitecture): describe cómo el procesador va a implementar el ISA. Por ejemplo, define el tamaño de la caché. 
+    • Diseño del Sistema (Systems design): incluye el resto de los componentes de hardware, procesamiento de datos, virtualización y multiprocesos.
+    • Arquitectura de Instrucciones de Ensamblador (Assembly instruction set architecture)
+
+Ordenador de Propósito General
+Un ordenador de propósito general tiene estas partes:
+    • Procesador: el “cerebro” que realiza operaciones aritméticas, responde a la información entrante y genera información saliente.
+    • Almacenamiento primario (memoria o RAM): el "bloc de notas" que recuerda la información que puede utilizar el procesador. Está conectada al procesador mediante un bus de sistema (cableado).
+    • Buses de sistema y de expansión: son los mecanismos de transferencia (cableado y conectores) que conectan el procesador con el almacenamiento primario y los dispositivos de entrada/salida.
+Un ordenador suele venir con varios dispositivos de entrada/salida: Para la entrada: un teclado, un ratón. Para la salida: una pantalla (monitor), una impresora; Para la entrada y la salida: una unidad de disco interna, una llave de memoria, un lector/grabador de CD, etc., así como conexiones a redes externas. 
+Por razones de velocidad, el almacenamiento primario está más conectado al procesador que los dispositivos de entrada/salida. La mayoría de los dispositivos (por ejemplo, el disco interno o la impresora) son en sí mismos ordenadores primitivos, en el sentido de que contienen procesadores sencillos que ayudan a transferir la información al/del procesador al/del dispositivo. 
+Aquí tenemos una imagen que resume lo anterior.
+
+
+
+
+
+
+
+
+
+Para los seres humanos, la información puede ser imágenes, símbolos, palabras, sonidos, movimientos y mucho más. Un ordenador típico tiene un teclado y un ratón para que las palabras y los movimientos puedan enviarse al procesador como información. La información debe convertirse en pulsos eléctricos de apagado y encendido (“0 y 1”) que viajan por el bus y llegan al procesador, que puede guardarlos en el almacenamiento primario.
+Es prematuro estudiar con precisión cómo los números y los símbolos pueden representarse como pulsos off-on (0-1), pero repasaremos la codificación de números en base-2 (binaria), que es el concepto en el que se basa la información de los ordenadores:
+
+Número decimal
+codificación binaria
+1
+0001
+2
+0010
+3
+0011
+4
+0100
+5
+0101
+6
+0110
+7
+0111
+y así sucesivamente. Es posible hacer aritmética en base binaria, por ejemplo, se escribe 3+5:
+  0011
++0101
+---------
+  1000
+La suma funciona como la aritmética normal (base-10), donde 1 + 1 = 10 (0 con un acarreo de 1). La resta, la multiplicación, etc. también funcionan así, y es posible cablear un circuito eléctrico que realice mecánicamente la suma de los 0 y los 1. De hecho, un procesador utiliza un cableado de este tipo, que opera con números binarios guardados en registros, en los que un registro es una secuencia de bits (componentes electrónicos ‘flip flops’, cada uno de los cuales puede recordar un 0 o un 1). Esta imagen representa un registro de 8 bits conteniendo el número 9:
+0
+0
+0
+0
+1
+0
+0
+1
+Un procesador tiene múltiples registros de este tipo, y puede calcular 3+5 colocando 3 (0000 0011) y 5 (0000 0101) en dos registros y luego utilizando el cableado entre los registros para calcular la suma, que podría guardarse en un tercer registro. A los inicios del milenio, los registros podían alcanzar hasta 32 bits. Estos registros pueden almacenar un valor en el rango aproximado de -2 mil millones a +2 mil millones. Un registro moderno cuenta hasta con 64 bits.
+Cuando se calcula una respuesta, como 3+5 = 8, el procesador puede copiar la respuesta al almacenamiento primario para guardarla para su uso posterior. Más tarde, el procesador puede copiar el número del almacenamiento de nuevo en un registro y hacer más aritmética con él.
+Central Processing Unit (CPU)
+
+
+Registros
+El procesador dispone de varios tipos de registros con distintos propósitos. Los registros de propósito general (EAX, EBX, ECX, EDX, EDI, ESI, EBP) son utilizados para almacenar información y para realizar accesos a memoria (más adelante detallaremos sobre el tema). Otros registros son utilizados para controlar el proceso y resultado de operaciones aritméticas, para la implementación de la segmentación de memoria, entre otras funciones.
+Instrucciones
+En la década de 1950, John von Neumann se dio cuenta de que el almacenamiento primario podía contener no sólo números, sino patrones de bits que representaban instrucciones que podían decirle al procesador (en realidad, decirle a la unidad de control del procesador) qué hacer. Una secuencia de instrucciones se denominó programa, y éste fue el comienzo de los ordenadores de propósito general con programas almacenados, en los que cada vez que se iniciaba un ordenador podía recibir un nuevo programa en el almacenamiento, que indicaba al procesador qué cálculos debía realizar. 
+
+Por ejemplo:
+MOV (lectura) el número en el almacenamiento (dirección x) para el registro 1
+MOV el número en el almacenamiento (dirección y) para el registro 2
+ADD registro 1 con registro 2 y mantén el resultado en el registro 1
+MOV (escritura) el número en el registro 1 para el almacenamiento (dirección z)
+Instrucciones como MOV y ADD pueden codificarse como patrones de bits que se copian en el registro de instrucciones del procesador.  El formato de cada instrucción es: IIII RRRR DDDD DDDD, donde IIII es la codificación que indica la operación requerida, RRRR es la codificación de qué registro de datos utilizar, y DDDD DDDD es el dato, que es una dirección de almacenamiento u otro número de registro. Por ejemplo, suponiendo que la instrucción MOV desde un registro hacia otro registro tenga una codificación igual a 10001000, entonces podría representarse de esta manera al mover el contenido del registro 2 hacia el registro 1: 
+(nota: la instrucción se acortó a 16 bits para facilidad al explicar, no es necesario tener tantos 0’s para entender el contenido)
+IIII
+RRRR
+DDDD DDDD
+10001000
+00000001
+00000000 00000010
+
+El ejemplo es artificial, pero debería convencerte de que sí es posible escribir instrucciones en términos de codificaciones binarias que una unidad de control puede descodificar, desensamblar y ejecutar.
+Para los humanos es doloroso leer y escribir tales codificaciones, que se denominan lenguaje de máquina, y existen abreviaturas, llamadas lenguaje ensamblador, que utilizan formas de texto. He aquí una versión de ejemplo en lenguaje ensamblador del programa de adición: 
+MOV eax, [50]
+MOV ebx, [100]
+ADD eax, ebx
+MOV [200], eax
+
+Sistemas de Números
+Un sistema de numeración es el conjunto de símbolos y reglas que se utilizan para la representación de datos numéricos y cantidades. Se caracteriza por su base que es el número de símbolos distintos que utiliza, y además es el coeficiente que determina cual es el valor de cada símbolo dependiendo de la posición que ocupe.
+Los sistemas de numeración actuales son sistemas posicionales en los que el valor relativo que representa cada símbolo o cifra de una determinada cantidad depende de su valor absoluto y de la posición relativa que ocupa dicha cifra con respecto a la coma decimal.
+Por ejemplo, el sistema decimal, utilizado hoy de forma universal, necesita diez símbolos diferentes o dígitos para representar un número y es, por tanto, un sistema numérico en base 10.
+A lo largo de la historia se han usado multitud de sistemas numéricos. En realidad, cualquier número mayor que 1 puede ser utilizado como base. Algunas civilizaciones usaban sistemas basados en los números 3, 4 o 5. Los babilonios utilizaron el sistema sexagesimal, basado en el número 60, y los romanos (en ciertas aplicaciones) el sistema duodecimal, con el número 12 como base. Los mayas utilizaban el sistema vigesimal, basado en el número 20. El sistema binario, o en base 2, fue usado por algunas tribus antiguas y junto con el sistema en base 16 se usa en la actualidad en los ordenadores o computadoras.
+Elementos de los sistemas de numeración
+En esencia, un sistema de numeración puede definirse como un conjunto de signos, relaciones, convenios y normas destinados a expresar de modo gráfico y verbal el valor de los números y las cantidades numéricas.
+En la actualidad, se usan predominantemente sistemas de numeración de carácter posicional, donde cada numeral o guarismo representa un valor distinto según la posición que ocupa en la cadena numérica (por ejemplo, el numeral 1 significa unidad en la cantidad 1, pero es decena en 13, centena en 148, etcétera).
+
+En un sistema de numeración se contemplan varios elementos fundamentales:
+    • La base del sistema, que se define como un convenio de agrupación de sus unidades. Por ejemplo, la base 10 o decimal agrupa diez unidades, mientras que la binaria únicamente agrupa dos.
+    • Los numerales del sistema, o cifras elementales que se utilizan, según la base. En el sistema decimal, se usan los numerales 0, 1, 2, 3, 4, 5, 6, 7, 8 y 9. En cambio, en el sistema binario tan sólo se emplean el 0 y el 1.
+    • Las normas de combinación de los numerales para formar los números. Según ello, a cada cifra se le asocian dos propiedades: su valor absoluto intrínseco y su valor posicional o relativo, que depende de la posición que ocupa en la cantidad numérica.
+El sistema decimal
+El sistema decimal, el más utilizado en todos los ámbitos de la actividad humana, se distingue por las siguientes características:
+    • Utiliza una base 10.
+    • Sus numerales son las cifras del 0 al 9, ambas incluidas.
+    • Las posiciones relativas de los números se denominan unidades, decenas, centenas, unidades de millar, decenas de millar, centenas de millar, unidades de millón, etc.
+
+El sistema binario
+Es un sistema de numeración en base 2, en el que los números se representan utilizando solamente las cifras cero y uno (0 y 1). Los ordenadores trabajan internamente con dos niveles de voltaje, por lo que su sistema de numeración natural es el sistema binario (encendido 1, apagado 0).
+Cada cifra o dígito de un número representado en este sistema se denomina BIT (contracción de binary digit).
+Para la medida de cantidades de información representadas en binario se utilizan una serie de múltiplos del bit que poseen nombre propio; estos son:
+1 bit = unidad mínima de información.
+8 bits = 1 Byte
+1 byte =1 letra, numero, símbolo de puntuación.
+
+Unidades de medida de almacenamiento
+1,024 bytes = 1 Kilobyte, Kbyte o KB
+1,024 KB= 1 Megabyte, Mbyte o MB (1,048,576 bytes)
+1,024 MB= 1 Gigabyte, Gbyte o GB (1,073,741,824 bytes)
+1,024 GB= 1 Terabyte, Tbyte o TB (1,099,511,627,776 bytes)
+1,024 TB= 1 Pentabyte, Pbyte o PB (1,125,899,906,842,624 bytes)
+
+Sistema Hexadecimal
+El sistema hexadecimal, a veces abreviado como hex, es el sistema de numeración posicional de base 16 —empleando por tanto 16 símbolos—. Su uso actual está muy vinculado a la informática y ciencias de la computación.
+En principio dado que el sistema usual de numeración es de base decimal y, por ello, sólo se dispone de diez dígitos, se adoptó la convención de usar las seis primeras letras del alfabeto latino para suplir los dígitos que nos faltan.

@@ -1,0 +1,76 @@
+ARQUITECTURA DE COMPUTADORAS 2021
+Conferencia 2: Circuitos Combinatorios.
+
+¿Qué es un Circuito Combinatorio?
+Un circuito combinatorio es aquel formado por un conjunto de compuertas lógicas, interconectadas, cuya(s) salida(s) está únicamente en función de la(s) entrada(s), en ese mismo instante. En otras palabras, son circuitos lógicos digitales sin memoria cuya salida en cualquier momento depende solo de la combinación de sus entradas.
+Los circuitos lógicos combinatorios se componen de compuertas lógicas básicas NAND, NOR o NOT que se “combinan” o conectan entre sí para producir circuitos de conmutación más complicados. Estas compuertas lógicas son los componentes básicos de los circuitos lógicos combinatorios. Los circuitos lógicos combinatorios pueden ser muy simples o muy complicados y cualquier circuito combinacional se puede implementar con solo puertas NAND y NOR, ya que se clasifican como puertas "universales".
+Representación
+Las tres formas principales de especificar la función de un circuito lógico combinacional son:
+1. Álgebra booleana: forma la expresión algebraica que muestra el funcionamiento del circuito lógico para cada variable de entrada, ya sea Verdadero o Falso, que da como resultado una salida lógica "1". Esta forma se puede transformar a fórmulas lógicas.
+2. Tabla de verdad: una tabla de verdad define la función de una puerta lógica al proporcionar una lista concisa que muestra todos los estados de salida en forma de tabla para cada combinación posible de variable de entrada que la puerta podría encontrar.
+3. Diagrama lógico: esta es una representación gráfica de un circuito lógico que muestra el cableado y las conexiones de cada puerta lógica individual, representada por un símbolo gráfico específico, que implementa el circuito lógico.
+Como los circuitos lógicos combinatorios se componen únicamente de compuertas lógicas individuales, también se pueden considerar como "circuitos de toma de decisiones" y la lógica combinacional consiste en combinar puertas lógicas para procesar dos o más señales con el fin de producir al menos una señal de salida de acuerdo con la función lógica de cada compuerta lógica. Los circuitos combinatorios comunes formados por compuertas lógicas individuales que llevan a cabo una aplicación deseada incluyen multiplexores, demultiplexores, codificadores, decodificadores, sumadores completos y medios, etc.
+Algunos componentes básicos
+Enable
+Un enable es una entrada de control que, cuando está activa, permite el funcionamiento del circuito y, cuando está inactivo, hace que el circuito esté en un modo de espera de potencia reducida. En otras palabras, es una entrada que permite o no, que en la salida se refleje el valor resultante de la entrada. 
+Representación
+
+Entrada: n líneas de entrada
+Salida: m líneas de salida
+
+
+Digital Buffer
+El Not Gate digital comúnmente llamado inversor, tiene como salida el complemento, opuesto o inverso de su señal de entrada. Entonces, por ejemplo, cuando la entrada única a la compuerta NOT es "ALTA", su estado de salida NO será "ALTA". Cuando su señal de entrada es "BAJA", su estado de salida NO será "BAJA", en otras palabras, "invierte" su señal de entrada, de ahí el nombre "Inversor".
+Pero a veces en los circuitos electrónicos digitales necesitamos aislar las compuertas lógicas entre sí o hacer que conduzcan o conmuten cargas más altas de lo normal sin necesidad de inversión. Un tipo de compuerta lógica de entrada única que nos permite hacer precisamente eso se llama búfer digital.
+A diferencia de la entrada única, el inversor de salida única o la compuerta NOT, el "Buffer" no realiza ninguna inversión o tiene la capacidad de tomar de decisiones (como compuertas lógicas con dos o más entradas), sino que produce una salida que coincide exactamente con la de su entrada. En otras palabras, un búfer digital no hace nada ya que su estado de salida es igual a su estado de entrada. Entonces, el búfer digital es un dispositivo "no inversor" y, por lo tanto, nos dará la expresión booleana de: Q = A, "Q es verdadera, solo cuando A es verdadera"; o sea, el estado de salida (Q) de un búfer solo es verdadero ("1" lógico) cuando su entrada A es verdadera; de lo contrario, su salida es falsa ("0" lógico). 
+Puede estar pensando, bueno, ¿cuál es el punto de un búfer digital si no invierte o altera su señal de entrada de ninguna manera, o toma decisiones u operaciones lógicas como lo hacen las puertas AND u OR? cable en su lugar, y ese es un buen punto. Pero un búfer digital no inversor tiene muchos usos en la electrónica digital y una de sus principales ventajas es que proporciona amplificación digital.
+Los búferes digitales se pueden utilizar para aislar otras compuertas o etapas de circuito entre sí, evitando que la impedancia de un circuito afecte la impedancia de otro. También se puede usar un búfer digital para impulsar cargas de alta corriente, como interruptores de transistores, porque su capacidad de activación de salida es generalmente mucho mayor que sus requisitos de señal de entrada. En otras palabras, los búferes se pueden utilizar para la amplificación de potencia de una señal digital, ya que tienen lo que se denomina una alta capacidad de "distribución en abanico".
+Tri-State Buffer
+Además del búfer digital estándar, hay otro tipo de circuito búfer digital cuya salida se puede desconectar “electrónicamente” de su circuito de salida cuando sea necesario. Este tipo de búfer se conoce como búfer de 3 estados.
+Un búfer de tres estados se puede considerar como un interruptor controlado de entrada con una salida que se puede encender o apagar electrónicamente por medio de una entrada de señal de "Control" o "Habilitación" externa: un enable. Esta señal de control puede ser un "0" lógico o una señal de tipo "1" lógico, lo que da como resultado que el búfer de tres estados esté en un estado que permite que su salida funcione normalmente produciendo la salida requerida o en otro estado donde su salida está bloqueada o desconectado.
+Cuando se activa en su tercer estado, desactiva o apaga su salida produciendo una condición de circuito abierto que no está en una lógica "ALTA" o "BAJA", sino que da un estado de salida de muy alta impedancia, Alta-Z o en inglés Hi-Z. Entonces, este tipo de dispositivo tiene dos entradas de estado lógico, "0" o un "1" (entrada de datos y el enable), pero puede producir tres estados de salida diferentes, "0", "1" o "Hi-Z", por lo que se denomina "Tri-State" o dispositivo de “3 estados”.
+Importante tener en cuenta que este tercer estado NO es igual a un nivel lógico "0" o "1", pero es un estado de alta impedancia en el que la salida de los búferes está desconectada eléctricamente del resto del circuito. Como resultado, no se extrae corriente del suministro.
+Representación
+
+Entrada:  componente binario y un enable
+Salida: 1 componente binario en tres estados posibles (0, 1, Hi-z)
+
+Multiplexer 
+Multiplexing es el término genérico que se usa para describir la operación de enviar una o más señales analógicas o digitales a través de una línea de transmisión común en diferentes momentos o velocidades y, como tal, el dispositivo que usamos para hacer eso se llama multiplexor.
+El multiplexor, abreviado como “MUX”, es un circuito lógico combinatorio diseñado para conmutar una de varias líneas de entrada a una única línea de salida común mediante la aplicación de una señal de control. En electrónica digital, los multiplexores también se conocen como selectores de datos porque pueden "seleccionar" cada línea de entrada.
+Generalmente, la selección de cada línea de entrada en un multiplexor es controlada por un conjunto adicional de entradas llamadas líneas de control o selectores de datos y de acuerdo con la condición binaria de estas entradas de control, ya sea "ALTA" o "BAJA", la entrada de datos apropiada se conecta directamente a la salida. Normalmente, un multiplexor tiene un número par de 2^n líneas de entrada de datos y un número de entradas de "control" que se corresponden con el número de entradas de datos.
+Se utilizan como un método para reducir el número de compuertas lógicas requeridas en el diseño de un circuito o cuando se requiere una sola línea de datos o un bus de datos para transportar dos o más señales digitales diferentes. 
+Representación
+
+Entrada:  componentes binarios
+Selectores: n bits
+Salida: 1 componente binario
+
+
+Demultiplexer
+El distribuidor de datos, conocido más comúnmente como demultiplexor o "DMX" para abreviar, es exactamente lo opuesto al multiplexor que vimos en anteriormente. El demultiplexor toma una sola línea de datos de entrada y luego la cambia a cualquiera de las líneas de salida individuales una a la vez. El demultiplexor convierte una señal de datos en serie en la entrada en datos en paralelo en sus líneas de salida.
+La función del demultiplexor es cambiar una línea de entrada de datos común a cualquiera de las líneas de datos de salida. Al igual que con el multiplexor, se seleccionan mediante el código de dirección de entrada binaria en los pines de selección de salida “a” y “b” como se muestra a continuación.
+Representación
+
+Entrada: 1 componente binario
+Selectores: n bits
+Salida:  componentes binarios
+
+
+Encoder 
+A diferencia de un multiplexor que selecciona una línea de entrada de datos individual y luego envía esos datos a una sola línea de salida o interruptor, el codificador digital más comúnmente llamado codificador binario toma todas sus entradas de datos una a la vez y luego las convierte en una única salida codificada. Entonces, podemos decir que un codificador binario es un circuito lógico combinatorio de múltiples entradas que convierte los datos del nivel lógico “1” en sus entradas en un código binario equivalente en su salida.
+Generalmente, los codificadores digitales producen salidas de códigos de 2 bits, 3 bits o 4 bits dependiendo del número de líneas de entrada de datos. Un codificador binario de “n bits” tiene 2^n líneas de entrada y líneas de salida de n bits con tipos comunes que incluyen configuraciones de 4 a 2, 8 a 3 y 16 a 4 líneas.
+Las líneas de salida de un codificador digital generan el equivalente binario de la línea de entrada cuyo valor es igual a "1" y están disponibles para codificar un patrón de entrada decimal o hexadecimal a un código de salida típicamente binario o "BCD" (decimal codificado en binario).
+Una de las principales desventajas de los codificadores digitales estándar es que pueden generar el código de salida incorrecto cuando hay más de una entrada presente en el nivel lógico “1”. Por ejemplo, si hacemos que las entradas 1 y 2 sean ALTAS en "1" lógico al mismo tiempo, la salida resultante no está ni en "01" ni en "10", sino que estará en "11", que es un número binario de salida que es diferente a la entrada real presente. Además, se puede generar un código de salida de todos los "0" lógicos en dos casos: cuando todas sus entradas están en "0" o cuando la entrada0 es igual a uno.
+Para ello podemos asignar un bit de validez al codificador, de forma tal que permita reconocer si una salida es válida o no. Otra forma sencilla de superar este problema es "Priorizar" el nivel de cada pin de entrada. Entonces, si hay más de una entrada en el nivel lógico “1” al mismo tiempo, el código de salida real solo correspondería a la entrada con la prioridad designada más alta. Entonces, este tipo de codificador digital se conoce comúnmente como codificador de prioridad o codificador P para abreviar.
+El codificador de prioridad resuelve los problemas mencionados anteriormente asignando un nivel de prioridad a cada entrada. La salida de los codificadores de prioridad corresponde a la entrada actualmente activa que tiene la prioridad más alta. Por lo tanto, cuando está presente una entrada con una prioridad más alta, se ignorarán todas las demás entradas con una prioridad más baja.
+Es importante tener en cuenta que los multiplexores funcionan de manera diferente a los codificadores. Los codificadores pueden cambiar un patrón de entrada de n bits a varias líneas de salida que representan el equivalente de salida codificado en binario (BCD) de la entrada activa.
+Representación
+
+Entrada:  componentes binarios
+Selectores: n bits
+Salida: 1 componente binario
+
+Decoder
+El nombre "Decodificador" significa traducir o decodificar información codificada de un formato a otro, por lo que un decodificador binario transforma "n" señales de entrada binarias en un código equivalente usando 2^n salidas. En otras palabras, convierte los datos de código binario presentes en su entrada en una serie de líneas de salida diferentes, una a la vez, produciendo un código decimal equivalente en su salida.
+Los decodificadores binarios son otro tipo de dispositivo lógico digital que tiene entradas de códigos de 2 bits, 3 bits o 4 bits dependiendo del número de líneas de entrada de datos, por lo que un decodificador que tiene un conjunto de dos o más bits se definirá como teniendo un código de n bits, y por lo tanto será posible representar 2^n valores posibles. Por lo tanto, un decodificador generalmente decodifica un valor binario en uno no binario estableciendo exactamente una de sus n salidas en "1" lógico. Si un decodificador binario recibe n entradas (generalmente agrupadas como un solo número binario o booleano), activa una y solo una de sus 2^n salidas basadas en esa entrada con todas las demás salidas desactivadas.
